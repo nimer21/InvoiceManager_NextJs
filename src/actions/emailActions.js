@@ -16,18 +16,18 @@ export const sendEmail = async ({ subject, message, email, data }) => {
     //console.log("sendEmail=>  ", subject, message, email, data, process.env.EMAIL_USERNAME);
     const transporter = nodemailer.createTransport({
         service: "gmail",
-        host: "smtp.gmail.com", // process.env.EMAIL_HOST
+        host: process.env.EMAIL_HOST, // process.env.EMAIL_HOST
         port: 587, //465
         secure: true, // true
         auth: {
-            user: "nimerelsayed@gmail.com", //process.env.EMAIL_USERNAME
-            pass: "wzytqhfmepoxlmev", // process.env.EMAIL_PASSWORD
+            user: process.env.EMAIL_USERNAME, //process.env.EMAIL_USERNAME
+            pass: process.env.EMAIL_PASSWORD, // process.env.EMAIL_PASSWORD
         },
     });
     const template = compileInvoiceTemplate(data.name, data.amount, data.status, data.createdAt, data._id);
     
     const mailOptions = {
-        from: "nimerelsayed@gmail.com", // process.env.EMAIL_USERNAME
+        from: process.env.EMAIL_USERNAME, // process.env.EMAIL_USERNAME
         to: email,
         subject: subject,
         html: template,
